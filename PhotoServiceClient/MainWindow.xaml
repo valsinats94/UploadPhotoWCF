@@ -1,0 +1,99 @@
+﻿<Controls:MetroWindow  x:Class="PhotoServiceClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="PhotoService Client" 
+        Height="600" Width="800" 
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
+    <Controls:MetroWindow.Resources>
+        <Image x:Key="SynchImage" Source="/PhotoServiceClient;component/Resources/Images/Start.png" />
+    </Controls:MetroWindow.Resources>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <!--<Button Content="settings" />-->
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20"
+                       Height="20"
+                       Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <!--<Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_cupcake}" />
+                        </Rectangle.OpacityMask>-->
+                    </Rectangle>
+                    <TextBlock 
+                       Margin="4 0 0 0"
+                       VerticalAlignment="Center"
+                       Text="synchronize" />
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DataGrid 
+            x:Name="dgPhotos"
+            Grid.Row="0"  
+            AutoGenerateColumns="False" 
+            IsReadOnly="True" 
+            SelectionChanged="dgPhotos_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn 
+                    Header="Name"
+                    Width="200" 
+                    Binding="{Binding Path=Name}"/>
+                <DataGridTextColumn 
+                    Header="Description" 
+                    Width="400" 
+                    Binding="{Binding Path=Description}"/>
+                <DataGridTextColumn 
+                    Header="Taken On" 
+                    Width="150" 
+                    Binding="{Binding Path=UploadedOn, StringFormat={}{0:MM/dd/yyyy hh:mm tt}}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <GroupBox Grid.Row="1">           
+            <GroupBox.Content>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock 
+                        Text="Selected photo" 
+                        FontWeight="Bold"
+                        FontSize="16" />
+                    <Image 
+                        x:Name="imgPhoto" 
+                        Width="320" 
+                        Height="240" 
+                        Stretch="Uniform"/>
+                </StackPanel>                
+            </GroupBox.Content>
+        </GroupBox>
+        <StackPanel 
+            Grid.Row="2" 
+            HorizontalAlignment="Right" 
+            Margin="5"
+            Orientation="Horizontal" >
+            <Button 
+                x:Name="btnGetPhotos" 
+                Margin="5"
+                Width="125"
+                Content="Get photos" 
+                Click="btnGetPhotos_Click"/>
+            <Button 
+                x:Name="btnNewPhoto" 
+                Margin="5"
+                Width="125"
+                Content="Upload a new photo..." 
+                Click="btnNewPhoto_Click" />
+            <Button 
+                x:Name="btnDeletePhoto" 
+                Margin="5"
+                Width="125"
+                Content="Delete selected photo" 
+                Click="btnDeletePhoto_Click" />
+        </StackPanel>
+    </Grid>
+</Controls:MetroWindow>
